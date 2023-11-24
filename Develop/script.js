@@ -12,8 +12,8 @@ $(function () {
     console.log("saved")
 
     //get the id base on where the save button is clicked
-    var blockId = $(this).closest(".time-block").attr("id");
-    var textContent = $(this).siblings(".description").val().trim();
+    let blockId = $(this).closest(".time-block").attr("id");
+    let textContent = $(this).siblings(".description").val().trim();
 
     // Save to local storage using the id as the key
     localStorage.setItem(blockId, textContent);
@@ -25,10 +25,10 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
 
-  var currentHour = dayjs().hour();
+  let currentHour = dayjs().hour();
 
   $(".time-block").each(function () {
-    var blockHour = parseInt($(this).attr("id").split("-")[1]);
+    let blockHour = parseInt($(this).attr("id").split("-")[1]);
 
     if (blockHour < currentHour) {
       $(this).removeClass("present future").addClass("past");
@@ -42,6 +42,14 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+  $(".time-block").each(function () {
+    let blockId = $(this).attr("id");
+    let savedContent = localStorage.getItem(blockId);
+
+    if (savedContent) {
+      $(this).find(".description").val(savedContent);
+    }
+  });
 
 
   // TODO: Add code to display the current date in the header of the page.
